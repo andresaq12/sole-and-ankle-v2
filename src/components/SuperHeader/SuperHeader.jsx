@@ -26,10 +26,17 @@ const Wrapper = styled.div`
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 2rem;
 `;
 
 const MarketingMessage = styled.span`
   color: ${COLORS.white};
+  margin-right: auto;
+  line-height: 1rem;
 `;
 
 const HelpLink = styled.a`
@@ -40,6 +47,8 @@ const HelpLink = styled.a`
   &:not(:focus-visible) {
     outline: none;
   }
+
+  margin: 0 1.5rem;
 `;
 
 export default SuperHeader;
