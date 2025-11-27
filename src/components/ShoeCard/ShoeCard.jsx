@@ -26,10 +26,12 @@ const ShoeCard = ({
   // will triumph and be the variant used.
   // prettier-ignore
   const variant = typeof salePrice === 'number'
-    ? 'on-sale'
+    ? 'Sale'
     : isNewShoe(releaseDate)
-      ? 'new-release'
+      ? 'New Release!'
       : 'default'
+
+  const bgVariant = variant === 'Sale' ? COLORS.primary : COLORS.secondary
 
   return (
     <Link href={`/shoe/${slug}`}>
@@ -37,6 +39,7 @@ const ShoeCard = ({
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
+        {variant !== 'default' && <PriceTag bg={bgVariant}>{variant}</PriceTag>}
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
@@ -59,14 +62,31 @@ const Link = styled.a`
 const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
+const PriceTag = styled.div`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  width: 118px;
+  height: 32px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  background-color: ${props => props.bg};
+  color: ${COLORS.white};
+`;
+
 const Image = styled.img`
   width: 100%;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Row = styled.div`
