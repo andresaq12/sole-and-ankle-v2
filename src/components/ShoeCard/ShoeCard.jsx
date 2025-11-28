@@ -26,12 +26,10 @@ const ShoeCard = ({
   // will triumph and be the variant used.
   // prettier-ignore
   const variant = typeof salePrice === 'number'
-    ? 'Sale'
+    ? 'on-sale'
     : isNewShoe(releaseDate)
-      ? 'New Release!'
+      ? 'new-release'
       : 'default'
-
-  const bgVariant = variant === 'Sale' ? COLORS.primary : COLORS.secondary
 
   return (
     <Link href={`/shoe/${slug}`}>
@@ -39,14 +37,16 @@ const ShoeCard = ({
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
-        {variant !== 'default' && <PriceTag bg={bgVariant}>{variant}</PriceTag>}
+        {variant === 'on-sale' && <SaleTag>Sale</SaleTag>}
+        {variant === 'new-release' && <NewTag>Just released!</NewTag>}
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price variant={variant}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {variant === 'on-sale' && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
     </Link>
@@ -66,19 +66,24 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const PriceTag = styled.div`
+const Tag = styled.div`
   position: absolute;
   top: 12px;
   right: -4px;
-  width: 118px;
-  height: 32px;
+  height: 2rem;
+  line-height: 2rem;
   font-size: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0 0.625rem;
   border-radius: 2px;
-  background-color: ${props => props.bg};
   color: ${COLORS.white};
+`;
+
+const SaleTag = styled(Tag)`
+  background-color: ${COLORS.primary}
+`;
+
+const NewTag = styled(Tag)`
+  background-color: ${COLORS.secondary}
 `;
 
 const Image = styled.img`
@@ -97,7 +102,12 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  color: ${({ variant }) =>
+    variant === 'on-sale' ? COLORS.gray[700] : COLORS.gray[900]};
+  text-decoration: ${({ variant }) =>
+    variant === 'on-sale' ? 'line-through' : 'none'};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
