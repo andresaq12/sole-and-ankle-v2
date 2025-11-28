@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   background-color: ${COLORS.gray[900]};
   display: flex;
   align-items: center;
-  width: 100%;
+  gap: 1.5rem;
   height: 2.5rem;
   padding: 0 2rem;
 `;
@@ -48,7 +48,6 @@ const HelpLink = styled.a`
     outline: none;
   }
 
-  margin: 0 1.5rem;
 `;
 
 export default SuperHeader;
