@@ -56,12 +56,9 @@ const ShoeCard = ({
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
-  flex: 1 1 300px;
 `;
 
 const Wrapper = styled.article`
-  display: flex;
-  flex-direction: column;
   position: relative;
 `;
 
